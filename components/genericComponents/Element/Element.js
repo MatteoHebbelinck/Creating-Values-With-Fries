@@ -15,7 +15,7 @@ export default class Element extends Component {
 				<div {...storyblokEditable(this.props.blok.content)} className={css["item"]}>
 					<Link className={css["link"]} href={`${this.props.blok.full_slug}`}>
 						<div className={css["header"]}>
-							<span className={css["title"]}>{this.props.blok.content.title}</span>
+							<span className={css["title"]} style={{ color: 'gold' }}>{this.props.blok.content.title}</span>
 						</div>
 					</Link>
 				</div>
