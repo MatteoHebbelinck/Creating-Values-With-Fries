@@ -89,12 +89,13 @@
   &__tag {
     margin-bottom: 5px;
     @include type-name-font($color-grey-normal);
-    color: #D4AF37; 
   }
 
   &__title {
     margin-bottom: 10px;
     @include main-title-font;
+    color: #D4AF37;
+  }   
 
     &--no-media {
       @extend .hero__title;
