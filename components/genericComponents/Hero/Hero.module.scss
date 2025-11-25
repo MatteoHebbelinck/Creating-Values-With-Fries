@@ -101,7 +101,7 @@
     
     &--highlighted {
       @extend .hero__title;
-      color: $color-blue-normal;
+      color: #ff9900;
       
       &--blue {
         @extend .hero__title--highlighted;
