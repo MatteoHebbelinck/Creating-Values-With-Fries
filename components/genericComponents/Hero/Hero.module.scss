@@ -7,11 +7,6 @@
   
   // ... (Alle andere 'hero--...' secties blijven ongewijzigd) ...
 
-  &--purple {
-    @extend .hero;
-    background-color: $color-purple-very-light;
-  }
-
   &__container {
     // ... (Ongewijzigd) ...
   }
@@ -23,20 +18,22 @@
   &__tag {
     margin-bottom: 5px;
     @include type-name-font($color-grey-normal);
-    // Hier is de 'tag' tekst. Wil je deze ook oranje-geel? 
-    // Zo ja, verander de regel hierboven naar:
-    // @include type-name-font($color-frit-orange-yellow);
   }
 
   &__title {
     margin-bottom: 10px;
     @include main-title-font;
 
-    /* --- START AANGEPASTE STIJLEN --- */
-    // Overschrijft de font-family van de mixin met een 'normaal' lettertype
-    font-family: Arial, Helvetica, sans-serif;
-    // Zet de kleur op oranje-geel (moet gedefinieerd zijn in colors.scss)
-    color: $color-frit-yellow-normal; 
+    /* --- START AANGEPASTE STIJLEN (Titel) --- */
+    // Overschrijf de Silkscreen/grote letterstijl met een "normaal" lettertype
+    // Gebruik de stijlen van @mixin text-font (Atlas Grotesk) om het 'normaal' te maken
+    font-family: "Atlas Grotesk", sans-serif !important; 
+    font-weight: 400 !important; // Normaal gewicht
+    font-size: 18px !important; // Een normale grootte
+    line-height: 29px !important; // Een normale regelafstand
+    
+    // Zet de kleur op de beschikbare oranje-gele kleur
+    color: $color-yellow-normal !important; 
     /* --- EIND AANGEPASTE STIJLEN --- */
 
     &--no-media {
@@ -45,21 +42,32 @@
     
     &--highlighted {
       @extend .hero__title;
-      // Zorg ervoor dat de 'highlighted' versies ook de nieuwe kleur krijgen,
-      // tenzij je wilt dat de highlighted kleuren de oranje-gele kleur overschrijven.
-      // Als je wilt dat deze highlighted kleuren blijven werken, moet je dit weglaten.
-      
-      // Optie 1: Overschrijf de highlighted kleur (gebruik #FFC300)
-      // color: $color-frit-orange-yellow; 
-      
-      // Optie 2: Hou de oorspronkelijke highlighted kleur (gebruik $color-blue-normal)
-      color: $color-blue-normal; // Laat dit staan als de highlighted kleur anders moet zijn
+      // Zorgt ervoor dat de basiskleur van highlighted ook geel is, 
+      // tenzij overschreven door een specifieke sub-modifier.
+      color: $color-yellow-normal !important; 
       
       &--blue {
         @extend .hero__title--highlighted;
-        color: $color-blue-normal;
+        color: $color-blue-normal; // Behoudt de specifieke highlight kleur
       }
+
+      &--red {
+        @extend .hero__title--highlighted;
+        color: $color-red-normal; // Behoudt de specifieke highlight kleur
+      }
+      
       // ... (Alle andere highlighted kleuren blijven ongewijzigd) ...
+    }
+    
+    // Media queries binnen __title moeten ook worden overschreven als je 
+    // de lettergrootte bij verschillende schermgroottes wilt behouden
+    @media only screen and (min-width: 800px) {
+        font-size: 20px !important; 
+        line-height: 33px !important; 
+    }
+    @media only screen and (min-width: 1250px) {
+        font-size: 24px !important; 
+        line-height: 38px !important; 
     }
   }
 
@@ -67,11 +75,10 @@
     margin-bottom: 30px;
     @include text-font;
 
-    /* --- START AANGEPASTE STIJLEN --- */
-    // Overschrijft de font-family van de mixin met een 'normaal' lettertype
-    font-family: Arial, Helvetica, sans-serif;
-    // Zet de kleur op oranje-geel (moet gedefinieerd zijn in colors.scss)
-    color: $color-frit-yellow-normal; 
+    /* --- START AANGEPASTE STIJLEN (Subtitel) --- */
+    // Het lettertype is al 'Atlas Grotesk' (normaal) door @include text-font. 
+    // We passen alleen de kleur aan.
+    color: $color-yellow-normal; 
     /* --- EIND AANGEPASTE STIJLEN --- */
 
     &--no-media {
@@ -79,5 +86,5 @@
     }
   }
 
-  // ... (De rest van het bestand blijft ongewijzigd) ...
-}
+  &__media-container {
+    // ... (De rest van het bestand blijft ongewijzigd) ...
