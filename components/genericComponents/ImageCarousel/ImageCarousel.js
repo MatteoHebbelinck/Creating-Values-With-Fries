@@ -100,7 +100,6 @@ export default class ImageCarousel extends Component {
                             {this.props.blok.images.map((imt, i) =>
                                 <li className={css["image-carousel__image-container"]} key={imt._uid}>
                                     <img className={css["image-carousel__image"]} src={imt.image.filename} alt={imt.image.alt} />
-                                    <p className={css["image-carousel__description"]}>{imt.description}</p>
                                 </li>)}
                         </ul>
                         {(this.state.showLeftArrow) && <span
