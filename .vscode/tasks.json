@@ -3,7 +3,7 @@
     "tasks": [
         {
             "type": "shell",
-            "command": "Remove-Item -Path .next -Force -Recurse",
+            "command": "rm -rf .next",
             "label": "cleanup"
         }
     ]
