@@ -94,8 +94,8 @@
   &__title {
     margin-bottom: 10px;
     @include main-title-font;
-    color: #D4AF37;
-  }   
+    color: #D4AF37; // goud
+    
 
     &--no-media {
       @extend .hero__title;
