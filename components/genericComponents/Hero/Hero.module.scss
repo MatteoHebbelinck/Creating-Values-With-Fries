@@ -101,11 +101,11 @@
     
     &--highlighted {
       @extend .hero__title;
-      color: $color-blue-normal;
+      color: $color-yelow-normal;
       
       &--blue {
         @extend .hero__title--highlighted;
-        color: $color-blue-normal;
+        color: $color-yellow-normal;
       }
 
       &--red {
