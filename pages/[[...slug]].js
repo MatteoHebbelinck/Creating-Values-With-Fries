@@ -3,7 +3,6 @@ import HeadComponent from "../components/technicalComponents/HeadComponent/HeadC
 import { getTags } from "../functions/services/metaTagService";
 
 export default function Page({ story, preview, socialtags, menu }) {
-
   story = useStoryblokState(
     story,
     {
@@ -65,18 +64,18 @@ export async function getStaticProps({ params }) {
   };
 
   const storyblokApi = getStoryblokApi();
-
   let { data } = await storyblokApi.get(`cdn/stories/${slug}`, sbParams);
+
   if (!data) return { notFound: true };
 
   let menudata = await storyblokApi.get(`cdn/stories/reusable/headermenu`, sbParams);
+
   if (!menudata) return { notFound: true };
 
   const menu = menudata.data.story;
 
   const title = data.story.name;
-  const description =
-    data.story.content.tagline ?? `${title}`;
+  const description = data.story.content.tagline ?? `${title}`;
 
   const socialtags = getTags({
     storyblokSocialTag: data.story.content.socialtag,
@@ -94,7 +93,7 @@ export async function getStaticProps({ params }) {
       socialtags,
       menu
     },
-    revalidate: 10,
+    revalidate: 10
   };
 }
 
@@ -106,14 +105,27 @@ export async function getStaticPaths() {
 
   Object.keys(data.links).forEach((key) => {
     const link = data.links[key];
-    if (link.is_folder) return;
 
-    const slug = link.slug.split("/");
-    paths.push({ params: { slug } });
+    // ⛔ NIET MEER RETURNEN als het een folder is
+    // Storyblok categories worden soms fout als folder gemarkeerd
+
+    // ✔️ Skip alleen systeem dingen zoals "home" map zelf
+    if (link.slug.startsWith("reusable")) return;
+
+    // ✔️ Bouw alleen paths voor echte stories (geen asset, geen root)
+    if (!link.slug || link.slug === "") return;
+
+    const slugArray = link.slug.split("/");
+
+    paths.push({
+      params: {
+        slug: slugArray
+      }
+    });
   });
 
   return {
     paths,
-    fallback: "blocking",
+    fallback: "blocking"
   };
 }

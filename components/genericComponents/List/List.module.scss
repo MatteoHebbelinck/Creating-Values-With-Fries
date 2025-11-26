@@ -1,112 +1,34 @@
 ﻿@import "../../../styles/colors.scss";
 @import "../../../styles/font-mixins.scss";
 
-
-.rich-text-section {
-  margin: 35px 17px 50px 18px;
-  
-  &--smaller {
-    margin: 35px 20px 50px 20px;
-  }
-
-  &__title {
-    margin-bottom: 20px;
-    @include title-font;
-  }
+.list {
+  margin: 40px 18px 60px 18px;
+  text-align: center;
 }
 
-
-
-@media only screen and (min-width: 500px) {
-  .rich-text-section {
-    margin-left: 40px;
-    margin-right: 40px;
-
-    &--smaller {
-      max-width: 650px;
-      margin-left: 20px;
-      margin-right: 40px;
-    }
-  }
+.list__title {
+  @include main-title-font($color-blue-normal);
+  margin-bottom: 24px;
+  text-align: center;
 }
 
-
-
-@media only screen and (min-width: 800px) {
-  .rich-text-section {
-    margin-top: 60px;
-
-    &--smaller {
-      margin-bottom: 55px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    &__title {
-      margin-bottom: 25px;
-    }
-  }
+.list__items {
+  list-style: disc;        // ⭐ bullets
+  padding-left: 20px;      // ruimte voor bullets
+  margin: 0 auto;
+  width: fit-content;
+  text-align: left;        // bullets moeten links uitlijnen
 }
 
-
-
-@media only screen and (min-width: 850px) {
-  .rich-text-section {
-    width: 780px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 70px;
-    
-   
-
-    &__title {
-      margin-bottom: 30px;
-    }
-  }
+.list__item + .list__item {
+  margin-top: 8px;
 }
 
+.list__link {
+  @include slightly-larger-text-font($color-grey-normal);
+  text-decoration: none;
 
-
-@media only screen and (min-width: 1250px) {
-  .rich-text-section {
-    width: 1030px;
-    margin-top: 70px;
-    margin-bottom: 90px;
-
-    
-
-    &--smaller {
-      width: 820px;
-      max-width: none;
-      margin-bottom: 80px;
-    }
-  }
-}
-
-
-
-@media only screen and (min-width: 1400px) {
-  .rich-text-section {
-    width: 1180px;
-
-  
-
-    &--smaller {
-      width: 820px;
-    }
-  }
-}
-
-
-
-@media only screen and (min-width: 1600px) {
-  .rich-text-section {
-    width: 1300px;
-
-   
-
-    &--smaller {
-      width: 820px;
-    }
+  &:hover {
+    text-decoration: underline;
   }
 }
