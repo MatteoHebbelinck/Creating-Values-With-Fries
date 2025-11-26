@@ -1,14 +1,15 @@
 import '../styles/globals.css'
 
 import { storyblokInit, apiPlugin } from "@storyblok/react";
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 // Specific Components
 import Person from "../components/specificComponents/Person/Person";
 import Teacher from "../components/specificComponents/Teacher/Teacher";
 import Experience from "../components/specificComponents/Experience/Experience";
-import Snack from "../components/specificComponents/Snack/Snack";   // ← JUIST
+import Snack from "../components/specificComponents/Snack/Snack";
+import SnackCategory from "../components/specificComponents/SnackCategory/SnackCategory"; // ← deze MOET bestaan
 
 // Generic Components
 import Hero from "../components/genericComponents/Hero/Hero";
@@ -27,32 +28,39 @@ import OneCol from "../components/layoutComponents/OneCol/OneCol";
 import TwoCol from "../components/layoutComponents/TwoCol/TwoCol";
 import ThreeCol from "../components/layoutComponents/ThreeCol/ThreeCol";
 
-// Remaining components
+// Remaining specific components
 import Product from "../components/specificComponents/Product/Product";
 import Location from "../components/specificComponents/Location/Location";
 import Artist from "../components/specificComponents/Artist/Artist";
 import Song from "../components/specificComponents/Song/Song";
 import Contact from "../components/specificComponents/Contact/contact";
 
-// Storyblok component mapping (IMPORTANT)
 const components = {
+  // specific
   person: Person,
   teacher: Teacher,
   experience: Experience,
+  snack: Snack,
+  snackcategory: SnackCategory,     // ← Storyblok component "snackcategory"
+
+  // generic
   hero: Hero,
-  page: Page,
   headermenu: Headermenu,
   menulink: Menulink,
   paragraph: Paragraph,
   intro: Intro,
   leftrightblock: LeftRightBlock,
-  snack: Snack,            // ← BELANGRIJK: Storyblok componentnaam "snack"
   list: List,
   element: Element,
+  imagecarousel: ImageCarousel,
+
+  // layout
+  page: Page,
   onecol: OneCol,
   twocol: TwoCol,
   threecol: ThreeCol,
-  imagecarousel: ImageCarousel,
+
+  // other specific
   product: Product,
   location: Location,
   artist: Artist,
@@ -60,7 +68,6 @@ const components = {
   contact: Contact,
 };
 
-// Initialize Storyblok
 storyblokInit({
   accessToken: process.env.STORYBLOK_API_KEY,
   use: [apiPlugin],
@@ -71,15 +78,9 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
 
   useEffect(() => {
-    const handleRouteChange = (url) => {
-      // placeholder if you add GA
-    }
-
+    const handleRouteChange = () => {};
     router.events.on("routeChangeComplete", handleRouteChange);
-
-    return () => {
-      router.events.off("routeChangeComplete", handleRouteChange);
-    }
+    return () => router.events.off("routeChangeComplete", handleRouteChange);
   }, [router.events]);
 
   return <Component {...pageProps} />;

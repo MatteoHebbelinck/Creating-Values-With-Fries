@@ -1,24 +1,26 @@
-import React from "react";
+import { Component } from "react";
+import Headermenu from "../../genericComponents/Headermenu/Headermenu";
+// import MainFooter from "./specificComponents/MainFooter/MainFooter"; 
 import { storyblokEditable, StoryblokComponent } from "@storyblok/react";
-import css from "./SnackCategory.module.scss";
-import { RichTextToHTML } from "../../../functions/storyBlokRichTextRenderer";
 
-export default function SnackCategory({ blok }) {
-  return (
-    <div {...storyblokEditable(blok)} className={css["category"]}>
-      <h1 className={css["category__title"]}>{blok.title}</h1>
 
-      {blok.description && (
-        <div className={css["category__description"]}>
-          {RichTextToHTML({ document: blok.description })}
-        </div>
-      )}
+export default class SnackCategory extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-      <div className={css["category__snacks"]}>
-        {blok.snacks?.map((snack) => (
-          <StoryblokComponent blok={snack} key={snack._uid} />
-        ))}
-      </div>
-    </div>
-  );
+
+  render() {
+    return (
+      <>
+        <main {...storyblokEditable(this.props.blok)}>
+          <Headermenu blok={this.props.menu.content}></Headermenu>
+          {this.props.blok.body.map((nestedBlok) => (
+            <StoryblokComponent blok={nestedBlok} key={nestedBlok._uid} />
+          ))}
+        </main>
+        {/* <MainFooter />  */}
+      </>
+    );
+  }
 }

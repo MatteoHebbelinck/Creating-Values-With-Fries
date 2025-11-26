@@ -10,7 +10,13 @@ export default function Page({ story, preview, socialtags, menu }) {
       resolveRelations: [
         "hero.colorcode",
         "leftrightblock.colorcode",
-        "snack.colorcode",       // ← BELANGRIJK: course → snack
+
+        // SNACK STRUCTURE
+        "snack.colorcode",
+        "snackcatalog.snackcategories",
+        "snackcategory.snacks",
+
+        // OTHER
         "artist.colorcode",
         "song.colorcode",
         "person.colorcode",
@@ -35,12 +41,16 @@ export default function Page({ story, preview, socialtags, menu }) {
 export async function getStaticProps({ params }) {
   let slug = params.slug ? params.slug.join("/") : "home";
 
-  let sbParams = {
+  const sbParams = {
     version: "draft",
     resolve_relations: [
       "hero.colorcode",
       "leftrightblock.colorcode",
-      "snack.colorcode",    // ← HIER OOK
+
+      "snack.colorcode",
+      "snackcatalog.snackcategories",
+      "snackcategory.snacks",
+
       "artist.colorcode",
       "song.colorcode",
       "person.colorcode",
@@ -55,10 +65,8 @@ export async function getStaticProps({ params }) {
   const storyblokApi = getStoryblokApi();
 
   let { data } = await storyblokApi.get(`cdn/stories/${slug}`, sbParams);
-
   if (!data) return { notFound: true };
 
-  // menu ophalen
   let menudata = await storyblokApi.get(`cdn/stories/reusable/headermenu`, sbParams);
   if (!menudata) return { notFound: true };
 
@@ -66,9 +74,7 @@ export async function getStaticProps({ params }) {
 
   const title = data.story.name;
   const description =
-    data.story.content.tagline
-      ? data.story.content.tagline
-      : `${title}`;
+    data.story.content.tagline ?? `${title}`;
 
   const socialtags = getTags({
     storyblokSocialTag: data.story.content.socialtag,
@@ -96,13 +102,12 @@ export async function getStaticPaths() {
 
   let paths = [];
 
-  Object.keys(data.links).forEach((linkKey) => {
-    if (data.links[linkKey].is_folder) return;
+  Object.keys(data.links).forEach((key) => {
+    const link = data.links[key];
+    if (link.is_folder) return;
 
-    const slug = data.links[linkKey].slug;
-    let splittedSlug = slug.split("/");
-
-    paths.push({ params: { slug: splittedSlug } });
+    const slug = link.slug.split("/");
+    paths.push({ params: { slug } });
   });
 
   return {
