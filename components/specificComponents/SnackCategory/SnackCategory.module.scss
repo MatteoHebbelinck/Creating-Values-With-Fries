@@ -1,0 +1,21 @@
+@import "../../../styles/colors.scss";
+@import "../../../styles/font-mixins.scss";
+
+.category {
+  padding: 40px 20px;
+
+  &__title {
+    @include main-title-font($color-default);
+    margin-bottom: 20px;
+  }
+
+  &__description {
+    margin-bottom: 30px;
+  }
+
+  &__snacks {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+  }
+}
