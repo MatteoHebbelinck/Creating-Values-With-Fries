@@ -1,24 +1,41 @@
-import { Component } from "react";
-import { storyblokEditable, StoryblokComponent } from "@storyblok/react";
-import Element from "../Element/Element";
+import React from "react";
+import Link from "next/link";
+import { storyblokEditable } from "@storyblok/react";
 import css from "./List.module.scss";
 
-export default class List extends Component {
-  constructor(props) {
-    super(props);
-  }
+export default function List({ blok }) {
+  return (
+    <section
+      {...storyblokEditable(blok)}
+      className={css["list"]}
+    >
+      {/* Titel boven de lijst (zoals "These are our types of snacks:") */}
+      {blok.title && (
+        <h2 className={css["list__title"]}>{blok.title}</h2>
+      )}
 
+      <ul className={css["list__items"]}>
+        {blok.elements?.map((story) => {
+          // bij resolve_relations zit de echte story in dit object
+          const content = story.content || story;
 
-  render() {
-    return (
-      <>
-        <section className={css["rich-text-section"]} {...storyblokEditable(this.props.blok)}>
-          <h2 className={css["rich-text-section__title"]}>{this.props.blok.title}</h2>
-          {this.props.blok.elements.map((nestedBlok) => (
-            <Element blok={nestedBlok} key={nestedBlok._uid} />
-          ))}
-        </section>
-      </>
-    );
-  }
+          // URL opbouwen: full_slug is het veiligst (/pages/snackcatalog/...)
+          const href = `/${story.full_slug || story.slug || ""}`;
+
+          return (
+            <li
+              key={story.uuid || story._uid}
+              className={css["list__item"]}
+            >
+              <Link href={href}>
+                <a className={css["list__link"]}>
+                  {content.title || story.name}
+                </a>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  );
 }

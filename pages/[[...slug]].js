@@ -3,14 +3,19 @@ import HeadComponent from "../components/technicalComponents/HeadComponent/HeadC
 import { getTags } from "../functions/services/metaTagService";
 
 export default function Page({ story, preview, socialtags, menu }) {
-
   story = useStoryblokState(
     story,
     {
       resolveRelations: [
         "hero.colorcode",
         "leftrightblock.colorcode",
-        "snack.colorcode",       // ← BELANGRIJK: course → snack
+
+        // SNACK STRUCTURE
+        "snack.colorcode",
+        "snackcatalog.snackcategories",
+        "snackcategory.snacks",
+
+        // OTHER
         "artist.colorcode",
         "song.colorcode",
         "person.colorcode",
@@ -36,12 +41,16 @@ export default function Page({ story, preview, socialtags, menu }) {
 export async function getStaticProps({ params }) {
   let slug = params.slug ? params.slug.join("/") : "home";
 
-  let sbParams = {
+  const sbParams = {
     version: "draft",
     resolve_relations: [
       "hero.colorcode",
       "leftrightblock.colorcode",
-      "snack.colorcode",    // ← HIER OOK
+
+      "snack.colorcode",
+      "snackcatalog.snackcategories",
+      "snackcategory.snacks",
+
       "artist.colorcode",
       "song.colorcode",
       "person.colorcode",
@@ -55,22 +64,18 @@ export async function getStaticProps({ params }) {
   };
 
   const storyblokApi = getStoryblokApi();
-
   let { data } = await storyblokApi.get(`cdn/stories/${slug}`, sbParams);
 
   if (!data) return { notFound: true };
 
-  // menu ophalen
   let menudata = await storyblokApi.get(`cdn/stories/reusable/headermenu`, sbParams);
+
   if (!menudata) return { notFound: true };
 
   const menu = menudata.data.story;
 
   const title = data.story.name;
-  const description =
-    data.story.content.tagline
-      ? data.story.content.tagline
-      : `${title}`;
+  const description = data.story.content.tagline ?? `${title}`;
 
   const socialtags = getTags({
     storyblokSocialTag: data.story.content.socialtag,
@@ -88,7 +93,7 @@ export async function getStaticProps({ params }) {
       socialtags,
       menu
     },
-    revalidate: 10,
+    revalidate: 10
   };
 }
 
@@ -98,17 +103,29 @@ export async function getStaticPaths() {
 
   let paths = [];
 
-  Object.keys(data.links).forEach((linkKey) => {
-    if (data.links[linkKey].is_folder) return;
+  Object.keys(data.links).forEach((key) => {
+    const link = data.links[key];
 
-    const slug = data.links[linkKey].slug;
-    let splittedSlug = slug.split("/");
+    // ⛔ NIET MEER RETURNEN als het een folder is
+    // Storyblok categories worden soms fout als folder gemarkeerd
 
-    paths.push({ params: { slug: splittedSlug } });
+    // ✔️ Skip alleen systeem dingen zoals "home" map zelf
+    if (link.slug.startsWith("reusable")) return;
+
+    // ✔️ Bouw alleen paths voor echte stories (geen asset, geen root)
+    if (!link.slug || link.slug === "") return;
+
+    const slugArray = link.slug.split("/");
+
+    paths.push({
+      params: {
+        slug: slugArray
+      }
+    });
   });
 
   return {
     paths,
-    fallback: "blocking",
+    fallback: "blocking"
   };
 }

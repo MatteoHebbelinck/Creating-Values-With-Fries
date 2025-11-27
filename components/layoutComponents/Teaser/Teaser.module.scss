@@ -1,0 +1,20 @@
+@import "../../../styles/colors.scss";
+@import "../../../styles/font-mixins.scss";
+
+.teaser {
+  text-align: center;
+  margin: 40px 0 20px 0;
+  margin-left: 30px;
+}
+
+.teaser__title {
+  @include main-title-font($color-yellow-normal);
+  font-size: 32px;
+  line-height: 38px;
+  margin: 0;
+
+  @media only screen and (min-width: 800px) {
+    font-size: 40px;
+    line-height: 46px;
+  }
+}
