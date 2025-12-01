@@ -18,12 +18,6 @@ export default class Page extends Component {
           {this.props.blok.body.map((nestedBlok) => (
             <StoryblokComponent blok={nestedBlok} key={nestedBlok._uid} />
           ))}
-          {iframeCode && (
-            <div className="page-level-map-wrapper">
-                {/* Je moet de styling voor "page-level-map-wrapper" zelf toevoegen aan je globale CSS */}
-                <div dangerouslySetInnerHTML={{ __html: iframeCode }} />
-            </div>
-          )}
         </main>
         {/* <MainFooter />  */}
       </>
