@@ -96,3 +96,16 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
+useEffect(() => {
+  const handleRouteChange = () => {
+    if (window && window._uxa) {
+      window._uxa.push(['trackPageView']);
+    }
+  };
+
+  router.events.on("routeChangeComplete", handleRouteChange);
+
+  return () => {
+    router.events.off("routeChangeComplete", handleRouteChange);
+  };
+}, [router.events]);
