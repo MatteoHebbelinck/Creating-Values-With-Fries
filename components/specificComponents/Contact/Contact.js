@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { storyblokEditable } from "@storyblok/react"; 
 // Deze import is nodig om in de Storyblok editor te kunnen werken.
-
 export default class Contact extends Component {
     
     constructor(props) {
@@ -18,3 +17,4 @@ export default class Contact extends Component {
         );
     }
 }
+
