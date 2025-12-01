@@ -2,16 +2,73 @@
 @import "../../../styles/font-mixins.scss";
 
 /* -------------------------------------------------------
-   ⭐ TITLE — Silkscreen font (zoals voorbeeld)
+   ⭐ FULL-WIDTH BACKGROUND OP SECTION
+   (class komt uit JS: highlighted-section + kleur)
    ------------------------------------------------------- */
+.highlighted-section {
+  width: 100%;
+  padding: 60px 0;
+  margin: 0;
 
+  &--red {
+    background-color: $color-red-light;
+  }
+
+  &--blue {
+    background-color: $color-blue-light;
+  }
+
+  &--yellow {
+    background-color: $color-yellow-light;
+  }
+
+  &--green {
+    background-color: $color-green-light;
+  }
+
+  &--purple {
+    background-color: $color-purple-light;
+  }
+
+  &--grey,
+  &--default {
+    background-color: $color-grey-light;
+  }
+
+  &--white {
+    background-color: $color-white-light;
+  }
+}
+
+/* -------------------------------------------------------
+   ⭐ IMAGE CONTAINER (GEEN achtergrond)
+   + FOTO VERTICAAL CENTREREN
+   ------------------------------------------------------- */
+.highlighted-content__image-container {
+  width: auto;
+  max-width: 400px;
+  align-self: center; // FOTO VERTICAAL IN MIDDEN
+}
+
+/* -------------------------------------------------------
+   ⭐ BOLD FIX (lokale module)
+   ------------------------------------------------------- */
+.highlighted-content__large-text {
+  strong,
+  b {
+    color: $color-grey-normal !important;
+  }
+}
+
+/* -------------------------------------------------------
+   ⭐ TITLE (Silkscreen)
+   ------------------------------------------------------- */
 .highlighted-content__title {
-  @include main-title-font($color-blue-normal); // Silkscreen, groot
+  @include main-title-font($color-blue-normal);
 
-  /* OVERRIDES zodat het beter overeenkomt met je screenshot */
   font-size: 42px !important;
   line-height: 48px !important;
-  font-weight: 800 !important;  
+  font-weight: 800 !important;
   margin-bottom: 18px;
 
   @media only screen and (min-width: 800px) {
@@ -25,59 +82,27 @@
   }
 }
 
-
 /* -------------------------------------------------------
-   ⭐ DESCRIPTION TEXT BELOW TITLE — KLEINER
+   ⭐ DESCRIPTION TEXT
    ------------------------------------------------------- */
+.highlighted-content__large-text {
+  @include text-font($color-grey-normal);
 
-.highlighted-content__description {
-  @include text-font($color-grey-normal); // donkerblauw-grijs uit je palette
-  font-size: 16px !important;
-  line-height: 26px !important;
-  max-width: 650px;
-
-  @media only screen and (min-width: 800px) {
-    font-size: 18px !important;
-    line-height: 30px !important;
+  &--with-navigator {
+    @include slightly-larger-text-font($color-grey-normal);
+    margin-bottom: 0;
   }
 }
 
 /* -------------------------------------------------------
-   ⭐ IMAGE BACKGROUND COLORS BASED ON YOUR PALETTE
+   ⭐ BASE LAYOUT (centreren + geen witte randen meer)
    ------------------------------------------------------- */
-
-.highlighted-content__image-container {
-  &--yellow {
-    background-color: $color-yellow-light;
-  }
-
-  &--blue {
-    background-color: $color-blue-light;
-  }
-
-  &--red {
-    background-color: $color-red-light;
-  }
-
-  &--green {
-    background-color: $color-green-light;
-  }
-
-  &--purple {
-    background-color: $color-purple-light;
-  }
-}
-
-/* -------------------------------------------------------
-   ORIGINAL CODE (unchanged except cleaned colors)
-   ------------------------------------------------------- */
-
 .highlighted-content {
   display: grid;
   grid-row-gap: 25px;
-  margin-bottom: 30px;
-  margin-left: 18px;
-  margin-right: 17px;
+  margin: 0 auto;        // GEEN wit boven/boven blokken
+  padding: 0 20px;       // veilige zijruimte
+  max-width: 1180px;     // mooi gecentreerd
 
   &--with-navigator {
     @extend .highlighted-content;
@@ -85,26 +110,6 @@
 
   &--last {
     @extend .highlighted-content;
-  }
-
-  &__image-container {
-    width: auto;
-    max-width: 400px;
-    background-color: $color-purple-light;
-
-    &--reverse {
-      @extend .highlighted-content__image-container;
-      
-      &--with-navigator {
-        @extend .highlighted-content__image-container--reverse;
-        max-width: 380px;
-      }
-    }
-
-    &--with-navigator {
-      @extend .highlighted-content__image-container;
-      max-width: 380px;
-    }
   }
 
   &__image-responsive-wrapper {
@@ -120,13 +125,12 @@
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 1;
-    margin: auto;
+    object-fit: contain;
   }
 
   &__text-container {
     height: auto;
-    overflow-y: hidden;
+    overflow: hidden;
     margin-bottom: 20px;
 
     &--reverse {
@@ -141,21 +145,11 @@
       @extend .highlighted-content__text-container;
     }
   }
-
-  &__large-text {
-    @include text-font($color-grey-normal);
-
-    &--with-navigator {
-      margin-bottom: 0;
-      @include slightly-larger-text-font($color-grey-normal);
-    }
-  }
 }
 
-/* ------------------------------------------
-   RESPONSIVE (UNCHANGED)
-   ------------------------------------------ */
-
+/* -------------------------------------------------------
+   ⭐ RESPONSIVE (ongewijzigd)
+   ------------------------------------------------------- */
 @media only screen and (min-width: 500px) {
   .highlighted-content {
     margin-left: 40px;
@@ -178,25 +172,19 @@
   .highlighted-content {
     display: grid;
     grid-template:
-            "left right"
-            / 370px 370px;
+      "left right" / 370px 370px;
     column-gap: 40px;
     grid-row-gap: 60px;
     width: 780px;
-    margin-bottom: 60px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto 60px;
 
     &--with-navigator {
       grid-template:
-            "up"
-            "down"
-            / auto;
+        "up"
+        "down" / auto;
       grid-row-gap: 25px;
       width: auto;
-      margin-bottom: 50px;
-      margin-left: 40px;
-      margin-right: 20px;
+      margin: 0 20px 50px 40px;
     }
 
     &--last {
@@ -205,12 +193,9 @@
 
     &__image-container {
       grid-area: left;
-      max-width: none;
-      margin-bottom: auto;
 
       &--with-navigator {
         grid-area: up;
-        max-width: 400px;
       }
 
       &--reverse {
@@ -218,7 +203,6 @@
 
         &--with-navigator {
           grid-area: up;
-          max-width: 400px;
         }
       }
     }
@@ -226,7 +210,6 @@
     &__text-container {
       grid-column: right;
       align-self: center;
-      margin-bottom: 0;
 
       &--with-navigator {
         grid-area: down;
@@ -239,75 +222,6 @@
           grid-area: down;
         }
       }
-    }
-  }
-}
-
-@media only screen and (min-width: 1250px) {
-  .highlighted-content {
-    display: grid;
-    grid-template:
-            "left right"
-            / 465px 465px;
-    column-gap: 100px;
-    grid-row-gap: 80px;
-    width: 1030px;
-    margin-bottom: 60px;
-
-    &--with-navigator {
-      grid-template:
-            "left middle right"
-            / 258px 105px 258px;
-      column-gap: 24px;
-      grid-row-gap: 60px;
-      width: 669px;
-      margin-bottom: 90px;
-    }
-
-    &--last {
-      margin-bottom: 100px;
-    }
-  }
-}
-
-@media only screen and (min-width: 1400px) {
-  .highlighted-content {
-    display: grid;
-    grid-template:
-            "left middle right"
-            / 490px 40px 490px;
-    column-gap: 80px;
-    width: 1180px;
-
-    &--with-navigator {
-      grid-template:
-            "left right"
-            / 370px 370px;
-      column-gap: 35px;
-      grid-row-gap: 60px;
-      width: 775px;
-      margin-bottom: 90px;
-    }
-  }
-}
-
-@media only screen and (min-width: 1600px) {
-  .highlighted-content {
-    display: grid;
-    grid-template:
-            "left middle right"
-            / 500px 60px 500px;
-    column-gap: 120px;
-    width: 1300px;
-
-    &--with-navigator {
-      grid-template:
-            "left right"
-            / 400px 400px;
-      column-gap: 60px;
-      grid-row-gap: 60px;
-      width: 860px;
-      margin-bottom: 90px;
     }
   }
 }
