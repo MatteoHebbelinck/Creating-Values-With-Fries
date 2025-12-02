@@ -63,16 +63,16 @@ function getDefaultTags() {
 		"googlebot": "all",
 		"robots": "all",
 		// OpenGraph
-		"og:site_name": "TopAcademy",
-		"og:title": "TopAcademy",
+		"og:site_name": "Creating Value With Fries",
+		"og:title": "Creating Value With Fries",
 		"og:description": description,
 		"og:image": imageUrl,
 		"og:type": "website",
 		// Twitter
-		"twitter:site": "@TopAcademy",
+		"twitter:site": "@Creating Value With Fries",
 		"twitter:card": "summary_large_image",
 		"twitter:image": imageUrl,
-		"twitter:title": "TopAcademy",
+		"twitter:title": "Creating Value With Fries",
 		"twitter:description": description
 	};
 }
