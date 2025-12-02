@@ -7,3 +7,6 @@ a {
 p img{
     max-width: 100%;
 }
+body {
+    margin-top: 10px;
+}
