@@ -67,7 +67,7 @@ export default async function handler(req, res) {
       .map((url) => {
         return `
             <url>
-              <loc>https://topacademy.vercel.app/${url.slug}</loc>
+              <loc>https://creatingvaluewithfries.vercel.app/${url.slug}</loc>
               <lastmod>${new Date().toISOString()}</lastmod>
               <changefreq>weekly</changefreq>
               <priority>1.0</priority>
