@@ -201,19 +201,17 @@
   }
 }
 
-/* TRUE FULLSCREEN MAP */
+/* FULL WIDTH MAP, NORMAL HEIGHT */
 .location-page__map {
-  position: fixed;        /* zweeft boven de layout */
-  top: 0;
-  left: 0;
-  width: 100vw;           /* volledige breedte */
-  height: 100vh;          /* volledige hoogte */
-  
-  margin: 0;              /* geen margins */
-  transform: none;        /* geen positioneringstrucjes meer nodig */
-  z-index: 1;             /* boven de content, indien nodig verhogen */
+  width: 100vw;              
+  max-width: 100vw;          
+  margin-left: 50%;          
+  transform: translateX(-50%);
+  height: 450px;             /* of wat jij wenst */
+  border: none;
 }
 
+/* iframe ook full-width */
 .location-page__map iframe {
   width: 100%;
   height: 100%;
