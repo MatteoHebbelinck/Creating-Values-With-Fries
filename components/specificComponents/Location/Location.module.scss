@@ -201,18 +201,21 @@
   }
 }
 
-/* FULL-WIDTH MAP (mapUrl iframe) */
+/* TRUE FULLSCREEN MAP */
 .location-page__map {
-  width: 100vw;
-  margin-left: 50%;
-  transform: translateX(-50%);
-  height: 450px; /* pas aan indien nodig */
-  border: none;
+  position: fixed;        /* zweeft boven de layout */
+  top: 0;
+  left: 0;
+  width: 100vw;           /* volledige breedte */
+  height: 100vh;          /* volledige hoogte */
+  
+  margin: 0;              /* geen margins */
+  transform: none;        /* geen positioneringstrucjes meer nodig */
+  z-index: 1;             /* boven de content, indien nodig verhogen */
 }
 
-/* Breek uit het grid op desktop */
-@media only screen and (min-width: 850px) {
-  .location-page__map {
-    grid-column: 1 / -1 !important;
-  }
+.location-page__map iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
 }
