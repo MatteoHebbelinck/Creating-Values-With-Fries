@@ -296,3 +296,12 @@
     height: 550px;
   }
 }
+
+/* FIX FONT FOR "LOCATION DETAILS" */
+.location-page p[style*="font-family"] {
+  font-family: "Montserrat", sans-serif !important; /* verander naar gewenst font */
+  font-size: 48px !important;
+  font-weight: 700 !important;
+  letter-spacing: -1px !important;
+  color: #001b50 !important;
+}
