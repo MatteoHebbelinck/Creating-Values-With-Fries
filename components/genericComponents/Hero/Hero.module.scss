@@ -1,8 +1,8 @@
 @import "../../../styles/font-mixins.scss";
 @import "../../../styles/colors.scss";
 
-
 .hero {
+  position: relative; // ⭐ belangrijk voor overlay positioning!
   background-color: $color-blue-very-light;
   
   &--transparent {
@@ -12,7 +12,7 @@
 
   &--white {
     @extend .hero;
-    background-color: $color-white-very-light;;
+    background-color: $color-white-very-light;
   }
 
   &--blue {
@@ -45,12 +45,27 @@
     background-color: $color-purple-very-light;
   }
 
+  /* ⭐⭐ Overlay layer */
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none; 
+  }
+
+  /* ⭐ Content moet boven overlay komen */
+  &__container,
+  &__title-group {
+    position: relative;
+    z-index: 2;
+  }
+
   &__container {
     display: grid;
-    grid-template: 
-            "media"
-            "text"
-            / auto;
+    grid-template:
+      "media"
+      "text"
+      / auto;
     max-width: 1440px;
     margin-left: auto;
     margin-right: auto;
@@ -95,7 +110,6 @@
     margin-bottom: 10px;
     @include main-title-font;
     color: #ffbb00; // goud
-    
 
     &--no-media {
       @extend .hero__title;
@@ -186,11 +200,12 @@
   }
 }
 
-
+/* ----------------------
+   RESPONSIVE BREAKPOINTS
+   ---------------------- */
 
 @media only screen and (min-width: 500px) {
   .hero {
-
     &__title-group {
       margin-left: 40px;
       margin-right: 40px;
@@ -207,17 +222,13 @@
   }
 }
 
-
-
-
 @media only screen and (min-width: 850px) {
   .hero {
-
     &__container {
       display: grid;
-      grid-template: 
-            "text media"
-            / 1fr 1fr;
+      grid-template:
+        "text media"
+        / 1fr 1fr;
       grid-column-gap: 40px;
       width: 780px;
       padding-top: 60px;
@@ -261,7 +272,6 @@
     }
 
     &__subtitle {
-
       &--no-media {
         max-width: 580px;
         margin-left: auto;
@@ -281,11 +291,8 @@
   }
 }
 
-
-
 @media only screen and (min-width: 1250px) {
   .hero {
-
     &__container {
       width: 1030px;
       grid-column-gap: 100px;
@@ -305,7 +312,6 @@
     }
 
     &__title-group {
-
       &--no-media {
         max-width: 1440px;
         margin-left: auto;
@@ -321,7 +327,7 @@
 
     &__title {
       margin-bottom: 30px;
-      
+
       &--no-media {
         max-width: 700px;
       }
@@ -343,11 +349,8 @@
   }
 }
 
-
-
 @media only screen and (min-width: 1400px) {
   .hero {
-
     &__container {
       width: 1180px;
       grid-column-gap: 200px;
@@ -371,11 +374,8 @@
   }
 }
 
-
-
 @media only screen and (min-width: 1600px) {
   .hero {
-
     &__container {
       width: 1300px;
       grid-column-gap: 250px;
@@ -396,5 +396,72 @@
         max-width: 1000px;
       }
     }
+  }
+}
+
+/* GRADIENT OVERLAY (veel mooier dan flat color) */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.55),   /* boven donkerder */
+    rgba(0, 0, 0, 0.35),   /* midden */
+    rgba(0, 0, 0, 0.15)    /* onder lichter */
+  );
+  opacity: var(--overlay-opacity, 1);
+}
+
+/* TEXT BLOCK ALWAYS ABOVE OVERLAY */
+.hero__container,
+.hero__title-group {
+  position: relative;
+  z-index: 2;
+}
+
+/* MORE LUXURIOUS LAYOUT */
+.hero__title-group {
+  max-width: 650px;
+  padding-top: 12vh;
+  padding-bottom: 14vh;
+  margin-left: 5vw;
+  animation: fadeInHero 1s ease-out forwards;
+  opacity: 0;
+}
+
+/* FADE-IN ANIMATION */
+@keyframes fadeInHero {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* NICER TYPOGRAPHY FOR HERO TITLES */
+.hero__title {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.hero__subtitle {
+  font-size: 1.3rem;
+  max-width: 500px;
+  margin-top: 10px;
+}
+
+/* RESPONSIVE TUNING */
+@media (max-width: 900px) {
+  .hero__title {
+    font-size: 2.8rem;
+  }
+  .hero__title-group {
+    padding-top: 18vh;
+    padding-bottom: 12vh;
   }
 }
