@@ -1,42 +1,66 @@
 .contact {
-  /* ✅ forceer normale hoogte (als er ergens 100vh op zit) */
   height: auto !important;
   min-height: 0 !important;
 
-  /* ✅ maak de sectie niet gigantisch */
-  padding: 60px 0 !important; /* minder/meer naar smaak */
-  margin: 0 auto;
-
-  /* jouw container breedte */
   max-width: 1200px;
-
-  /* layout links + rechts */
-  display: flex;
-  align-items: center;        /* verticaal mooi in het midden */
-  justify-content: center;
-  gap: 48px;
+  margin: 0 auto;
 
   font-family: "Arial", sans-serif;
   color: #333;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 48px;
+
+  padding: 60px 20px 60px 0 !important;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  a {
+    color: #0070f3;
+    text-decoration: none;
+    transition: color 0.3s;
+
+    &:hover {
+      color: #0051a2;
+    }
+  }
 }
 
-/* links (kaart) */
+/* ✅ LINKERKANT (witte kaart) */
 .left {
-  flex: 0 0 520px;
-  max-width: 520px;
+  flex: 0 0 560px;
+  max-width: 560px;
+
+  /* ✅ hierdoor komt het email/phone icoon volledig in beeld */
+  padding: 40px;
+  box-sizing: border-box;
 }
 
-/* rechts (tekst) */
+/* ✅ RECHTERKANT (tekst) */
 .right {
   flex: 1;
   min-width: 0;
 }
 
-/* responsive */
+/* ✅ Responsive */
 @media (max-width: 900px) {
   .contact {
     flex-direction: column;
     align-items: stretch;
+    justify-content: flex-start;
     padding: 40px 20px !important;
     gap: 24px;
   }
@@ -45,5 +69,13 @@
   .right {
     max-width: 100%;
     flex: 1;
+  }
+
+  .contact h1 {
+    font-size: 1.5rem;
+  }
+
+  .contact p {
+    font-size: 0.95rem;
   }
 }
