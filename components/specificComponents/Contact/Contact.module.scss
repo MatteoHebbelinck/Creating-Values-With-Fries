@@ -1,76 +1,49 @@
 .contact {
-  padding: 2rem;
-  max-width: 1200px;
+  /* ✅ forceer normale hoogte (als er ergens 100vh op zit) */
+  height: auto !important;
+  min-height: 0 !important;
+
+  /* ✅ maak de sectie niet gigantisch */
+  padding: 60px 0 !important; /* minder/meer naar smaak */
   margin: 0 auto;
-  font-family: "Arial", sans-serif;
-  color: #333;
 
-  /* achtergrond van de hele sectie (mag je houden of weghalen) */
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  /* jouw container breedte */
+  max-width: 1200px;
 
-  /* ✅ LAYOUT: links kaart + rechts tekst */
+  /* layout links + rechts */
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;        /* verticaal mooi in het midden */
+  justify-content: center;
   gap: 48px;
 
-  h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: #1a1a1a;
-  }
-
-  p {
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-  }
-
-  a {
-    color: #0070f3;
-    text-decoration: none;
-    transition: color 0.3s;
-
-    &:hover {
-      color: #0051a2;
-    }
-  }
+  font-family: "Arial", sans-serif;
+  color: #333;
 }
 
-/* ✅ LINKERKANT (kaart) */
+/* links (kaart) */
 .left {
-  flex: 0 0 520px;   /* vaste kaartbreedte */
+  flex: 0 0 520px;
   max-width: 520px;
 }
 
-/* ✅ RECHTERKANT (tekst) */
+/* rechts (tekst) */
 .right {
   flex: 1;
   min-width: 0;
 }
 
-/* ✅ Responsive */
+/* responsive */
 @media (max-width: 900px) {
   .contact {
     flex-direction: column;
+    align-items: stretch;
+    padding: 40px 20px !important;
     gap: 24px;
-    padding: 1rem;
   }
 
   .left,
   .right {
     max-width: 100%;
     flex: 1;
-  }
-
-  .contact h1 {
-    font-size: 1.5rem;
-  }
-
-  .contact p {
-    font-size: 0.95rem;
   }
 }
