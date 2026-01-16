@@ -25,7 +25,7 @@ export default function Page({ story, preview, socialtags, menu }) {
         "artist.songs",
         "song.artist",
         "list.elements",
-      ]
+      ],
     },
     preview
   );
@@ -33,7 +33,11 @@ export default function Page({ story, preview, socialtags, menu }) {
   return (
     <>
       <HeadComponent socialTags={socialtags} />
-      <StoryblokComponent menu={menu} blok={story?.content} />
+
+      {/* ✅ RUIMTE TUSSEN LOGO/MENU EN HERO FOTO */}
+      <div style={{ paddingTop: "40px" }}>
+        <StoryblokComponent menu={menu} blok={story?.content} />
+      </div>
     </>
   );
 }
@@ -63,8 +67,7 @@ export async function getStaticProps({ params }) {
       "artist.songs",
       "song.artist",
       "list.elements",
-      
-    ]
+    ],
   };
 
   // ✅ SAFE fetch met try/catch
@@ -73,7 +76,6 @@ export async function getStaticProps({ params }) {
     const res = await storyblokApi.get(`cdn/stories/${slug}`, sbParams);
     data = res.data;
   } catch (err) {
-    // ❗ BELANGRIJK: geef een 404 terug, geen crash
     return { notFound: true };
   }
 
@@ -105,9 +107,9 @@ export async function getStaticProps({ params }) {
       story: data.story,
       key: data.story.id,
       socialtags,
-      menu
+      menu,
     },
-    revalidate: 10
+    revalidate: 10,
   };
 }
 
@@ -120,24 +122,19 @@ export async function getStaticPaths() {
   Object.keys(data.links).forEach((key) => {
     const link = data.links[key];
 
-    // ❌ Skip folders (geen story)
     if (link.is_folder) return;
-
-    // ❌ Skip reusable menu
     if (link.slug.startsWith("reusable")) return;
-
-    // ❌ Skip lege slugs
     if (!link.slug || link.slug === "") return;
 
     paths.push({
       params: {
-        slug: link.slug.split("/")
-      }
+        slug: link.slug.split("/"),
+      },
     });
   });
 
   return {
     paths,
-    fallback: "blocking"
+    fallback: "blocking",
   };
 }
