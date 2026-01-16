@@ -35,7 +35,7 @@ export default function Page({ story, preview, socialtags, menu }) {
       <HeadComponent socialTags={socialtags} />
 
       {/* ✅ RUIMTE TUSSEN LOGO/MENU EN HERO FOTO */}
-      <div style={{ paddingTop: "20px" }}>
+      <div style={{ paddingTop: "30px" }}>
         <StoryblokComponent menu={menu} blok={story?.content} />
       </div>
     </>
