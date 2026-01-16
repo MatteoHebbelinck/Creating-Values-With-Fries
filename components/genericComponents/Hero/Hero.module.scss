@@ -16,7 +16,7 @@
   background-position: center;
   background-repeat: no-repeat;
 
-  margin-top: 40px !important; /* ✅ ruimte tussen logo/menu en foto */
+  margin-top: 30px; /* ✅ ruimte tussen logo/menu en foto */
   padding: 6rem 3rem;
 
   &::before {
@@ -118,7 +118,7 @@ $heroText: #F6E7C1;
 
 @media (max-width: 600px) {
   .hero {
-    margin-top: 20px !important; /* ✅ minder ruimte op mobiel */
+    margin-top: 15px !important; /* ✅ minder ruimte op mobiel */
     padding: 4rem 1.5rem;
   }
   .title {
